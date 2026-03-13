@@ -1,118 +1,126 @@
-## Project Description:
+# AccessPoint
 
-### Goal:
+A seamless, modern login and registration system built with pure HTML, CSS, and JavaScript — no frameworks, no build tools, no dependencies.
 
-The project aims to create an interactive login form page, enabling users to log in, register a new account, and recover a lost password.
+![HTML](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
+![CSS](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
 
-### Feature Description:
+## Features
 
-- **Login Form:** Users can enter their login credentials to access their account.
-- **Registration:** New users can create an account by providing necessary information.
-- **Password Recovery:** Users who forgot their password can recover access through a password reset procedure.
+- **User Registration** — name, email, password with real-time strength meter
+- **User Login** — credential validation with clear error feedback
+- **Password Recovery** — token-based reset flow with expiration
+- **Session Management** — auto-expiring mock sessions with restore-on-reload
+- **Dashboard** — simple user profile view after authentication
+- **Responsive Design** — mobile-first layout with smooth transitions
+- **Accessible** — semantic HTML, ARIA labels, focus-visible outlines
+- **Secure by Default** — XSS sanitization, hashed passwords (mock), vague recovery messages to prevent user enumeration
 
-## Requirements Analysis:
+## Repository Structure
 
-### Functional Requirements:
+```
+AccessPoint/
+├── index.html              Single-page app with all views
+├── styles.css              Mobile-first responsive styles
+├── script.js               Main controller (events, routing)
+│
+├── src/
+│   ├── utils.js            Helpers (hashing, tokens, sanitize, debounce)
+│   ├── storage.js          Mock user database (localStorage)
+│   ├── validator.js        Email, password, name validation rules
+│   ├── session.js          Mock session handler (sessionStorage)
+│   ├── recovery.js         Password reset flow (token lifecycle)
+│   ├── auth-controller.js  Register, login, logout logic
+│   └── ui-controller.js    View switching, messages, DOM updates
+│
+├── assets/
+│   └── favicon.svg         App favicon
+│
+├── docs/
+│   ├── overview.md         System description
+│   ├── architecture.md     Module map & data flow diagrams
+│   ├── validation-rules.md Field validation rules reference
+│   ├── recovery-flow.md    Password reset process explained
+│   ├── customization.md    Theming, adding fields & views
+│   └── integration.md      How to connect a real backend API
+│
+└── README.md
+```
 
-- **Login Form:** Fields for email address and password, "Login" button.
-- **Registration:** Form with fields for email address, password, password confirmation.
-- **Password Recovery:** Password reset procedure using email address.
-- **Error Messages:** Display error messages in case of incorrect data.
+## Getting Started
 
-### Non-functional Requirements:
+1. **Clone the repository**
 
-- **Security:** Application of appropriate security standards for data transmission and storage.
-- **Responsiveness:** The page should be adapted for various devices.
-- **Aesthetics:** Pleasing interface, providing positive user experience.
-- **User-Friendliness:** Intuitive interface, easy to use for users.
+    ```bash
+    git clone https://github.com/your-username/AccessPoint.git
+    cd AccessPoint
+    ```
 
-## Interface Design:
+2. **Open in a browser**
 
-### Interface Sketches/Visualizations:
+    ```bash
+    # Any static file server works. For example:
+    npx serve .
+    # or simply open index.html directly in your browser
+    ```
 
-- *Email address input field*
-- *Password input field*
-- *"Login" button*
-- *Link "Register"*
-- *Link "Forgot Password?"*
-- *Registration Form: Fields for email, password, password confirmation*
-- "Register" button*
-- *Password Recovery Form: Field for email*
-- "Reset Password" button*
+3. **Try it out**
+    - Create an account on the registration page.
+    - Log out and log back in.
+    - Use "Forgot your password?" to test the reset flow.
 
-### Site Map:
+No build step, no install — just open and go.
 
-- *Home Page*: Login form and links to registration and password recovery.
-- *Registration Page*: Registration form and link to return to the login form.
-- *Password Recovery Page*: Password recovery form and link to return to the login form.
+## Modules
 
-## System Architecture:
+| Module                 | Responsibility                                                                                                 |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------- |
+| **utils.js**           | ID generation, mock password hashing/verification, token creation, date formatting, debounce, XSS sanitization |
+| **storage.js**         | CRUD operations for users and reset tokens via `localStorage`                                                  |
+| **validator.js**       | Validates email, password (with strength scoring), password confirmation, and display name                     |
+| **session.js**         | Creates, reads, refreshes, and destroys sessions in `sessionStorage` (30-min expiry)                           |
+| **recovery.js**        | Generates time-limited reset tokens, validates them, and updates passwords                                     |
+| **auth-controller.js** | Orchestrates registration, login, logout, and current-user retrieval                                           |
+| **ui-controller.js**   | Manages view transitions, field error display, global messages, password strength meter, and loading states    |
 
-### Technologies:
+## Future Improvements
 
-- **Frontend:** HTML, CSS, JavaScript (possibly using a framework, e.g., React).
-- **Backend:** Node.js with Express framework or another suitable language and framework.
-- **Database:** MongoDB or another suitable database.
+- [ ] **Real Backend Integration** — connect to a REST or GraphQL API (see [docs/integration.md](docs/integration.md))
+- [ ] **JWT Authentication** — replace mock sessions with JSON Web Tokens
+- [ ] **Two-Factor Authentication (2FA)** — TOTP-based second factor
+- [ ] **User Roles & Permissions** — admin, editor, viewer role system
+- [ ] **OAuth / Social Login** — Google, GitHub, Apple sign-in
+- [ ] **Remember Me** — persistent sessions with secure refresh tokens
+- [ ] **Account Settings** — change name, email, password from the dashboard
+- [ ] **Rate Limiting** — brute-force protection on login and recovery
+- [ ] **Internationalization (i18n)** — multi-language support
+- [ ] **Accessibility Audit** — full WCAG 2.1 AA compliance
 
-## Testing:
+## License
 
-### Test Plan:
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
 
-- **Unit Tests:** Check the correctness of individual form functions.
-- **Interface Tests:** Ensure that the interface works correctly on different devices.
-- **Security Tests:** Check resistance to attacks, verify the application of security standards.
+```
+MIT License
 
-## Implementation:
+Copyright (c) 2025 AccessPoint Contributors
 
-### Technology Description:
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-- **Frontend:** HTML, CSS, JavaScript (or React for more advanced features).
-- **Backend:** Node.js, Express (or another framework), database (e.g., MongoDB).
-- **Security:** Use of HTTPS protocols, password hashing.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-### Code Structure:
-
-- *Directories/Files*: Separate files for the logic of login, registration, password recovery forms.
-- *Code Writing Style*: Clear comments, modular structure.
-
-## Testing:
-
-### Test Plan:
-
-- **Unit Tests:** Check the correctness of individual form functions.
-- **User Interface Tests:** Check user interaction on different devices.
-- **Security Tests:** Verify the system's resistance to intrusion attempts.
-
-### Testing Procedures:
-
-- Develop a set of test cases for each form function.
-- Establish procedures for reporting and fixing found bugs.
-
-## Deployment and Maintenance:
-
-### Deployment Plan:
-
-- **Deployment Stages:** Testing, corrections, publication on the production server.
-- **Dates:** Determine dates for planned stages.
-
-### Maintenance Procedures:
-
-- **Technical Support:** Establish communication channels with users for problem reporting.
-- **Updates:** Plan regular updates based on user feedback and needs.
-
-## Schedule:
-
-### Project Plan:
-
-- **Implementation Stages:** Divide tasks into specific activities (e.g., interface design, function implementation, testing).
-- **Dates:** Specify the time needed for each stage.
-
-## Budget:
-
-### Estimated Costs:
-
-- **Application Development:** Based on hours of work or a team of developers.
-- **Maintenance Costs:** Servers, external services, possible fees for technical support.
-
----
-[Polish](Documents/READMEPL.md)
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
